@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Contact — Ken Yamashiro</title>
+<meta name="description" content="Get in touch." />
+
+<!-- ============================================================
+     HOW THE FORM WORKS
+     • By default, clicking "Send" opens the visitor's email app with a
+       message pre-addressed to you (no server needed).
+     • To collect submissions on the page instead, make a free form at
+       https://formspree.io and paste its URL into FORM_ENDPOINT below.
+     ============================================================ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --ink: #141414;
+    --ink-soft: #5c5c5c;
+    --line: #d9d9d5;
+    --accent: #2f4f86;
+    --navy: #26314a;
+    --field-bg: #f6f6f4;
+    --display: "Oswald", "Arial Narrow", system-ui, sans-serif;
+    --body: "Inter", system-ui, sans-serif;
+    --maxw: 1240px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; font-family: var(--body); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  img { display: block; max-width: 100%; }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 40px; }
+
+  /* ---------- NAV (solid) ---------- */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255,255,255,0.95); backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 18px 40px;
+  }
+  .brand { font-family: var(--display); font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; font-size: 1.2rem; color: var(--ink); white-space: nowrap; }
+  .brand:hover { text-decoration: none; }
+  .nav-right { display: flex; align-items: center; gap: 30px; }
+  .nav-links { display: flex; align-items: center; gap: 30px; }
+  .nav-links a { color: var(--ink-soft); font-size: 1.02rem; font-weight: 400; }
+  .nav-links a:hover { text-decoration: none; color: var(--ink); }
+  .nav-links a.active { color: var(--ink); text-decoration: underline; text-underline-offset: 8px; }
+  .nav-social { display: flex; align-items: center; gap: 18px; }
+  .nav-social a { color: var(--ink); display: flex; }
+  .nav-social a:hover { color: var(--accent); }
+  .nav-social svg { width: 20px; height: 20px; }
+  .menu-btn { display: none; background: none; border: 0; cursor: pointer; width: 30px; height: 30px; padding: 0; }
+  .menu-btn span { display: block; height: 2px; background: var(--ink); margin: 6px 0; }
+
+  /* ---------- CONTACT LAYOUT ---------- */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; padding: 90px 0 40px; }
+  .contact-head h1 {
+    font-family: var(--display); font-weight: 700; text-transform: uppercase;
+    font-size: clamp(2.4rem, 5vw, 4rem); line-height: 1.05; letter-spacing: 0.01em; margin: 0;
+  }
+
+  .field-block { margin-bottom: 28px; }
+  .field-title { font-size: 1.15rem; margin-bottom: 10px; }
+  .req { color: var(--ink-soft); font-weight: 400; font-size: 0.85rem; }
+  .name-row { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  label.small { display: block; font-size: 0.92rem; color: var(--ink); margin-bottom: 6px; }
+  input, textarea {
+    width: 100%; padding: 12px 14px; font-family: var(--body); font-size: 1rem;
+    border: 1px solid #c9c9c4; border-radius: 2px; background: var(--field-bg); color: var(--ink);
+  }
+  input:focus, textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; border-color: transparent; }
+  textarea { resize: vertical; min-height: 200px; }
+  .send-btn {
+    margin-top: 8px; background: var(--navy); color: #fff; border: 0; cursor: pointer;
+    font-family: var(--body); font-weight: 700; font-size: 1rem; padding: 16px 34px; border-radius: 4px;
+    transition: background 0.15s;
+  }
+  .send-btn:hover { background: #1b2435; }
+  .form-status { font-size: 0.95rem; margin-top: 16px; color: var(--ink); }
+
+  /* ---------- FOOTER ---------- */
+  .site-footer { padding: 64px 24px; text-align: center; margin-top: 60px; }
+  .foot-links { margin-bottom: 18px; }
+  .foot-links a { color: var(--accent); font-size: 1rem; padding: 0 10px; }
+  .foot-links span { color: var(--ink-soft); }
+  .foot-meta { color: var(--ink); font-size: 0.95rem; margin-bottom: 20px; }
+  .foot-social { display: flex; gap: 20px; justify-content: center; }
+  .foot-social a { color: var(--ink); display: flex; }
+  .foot-social a:hover { color: var(--accent); }
+  .foot-social svg { width: 20px; height: 20px; }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 860px) {
+    .contact-grid { grid-template-columns: 1fr; gap: 36px; padding: 56px 0 24px; }
+    .nav { padding: 16px 24px; }
+    .nav-links, .nav-social { display: none; }
+    .menu-btn { display: block; }
+    .nav.open { flex-direction: column; align-items: flex-start; }
+    .nav.open .nav-links { display: flex; flex-direction: column; gap: 16px; width: 100%; margin-top: 14px; }
+    .nav.open .nav-social { display: flex; margin-top: 14px; }
+  }
+  @media (max-width: 480px) { .name-row { grid-template-columns: 1fr; } }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+</style>
+</head>
+<body>
+
+<!-- ===================== NAV ===================== -->
+<header class="nav" id="nav">
+  <a class="brand" href="index.html">Ken Yamashiro — Mechanical Engineer</a>
+  <button class="menu-btn" id="menuBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+  <div class="nav-right">
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="resume.html">Resume</a>
+      <a href="contact.html" class="active">Contact</a>
+    </nav>
+    <div class="nav-social">
+      <a href="https://www.linkedin.com/in/ken-yamashiro" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 0H5a5 5 0 00-5 5v14a5 5 0 005 5h14a5 5 0 005-5V5a5 5 0 00-5-5zM8 19H5V8h3v11zM6.5 6.7A1.8 1.8 0 116.5 3a1.8 1.8 0 010 3.7zM20 19h-3v-5.6c0-3.4-4-3.1-4 0V19h-3V8h3v1.8c1.4-2.6 7-2.8 7 2.5V19z"/></svg>
+      </a>
+      <a href="https://github.com/KenYam4" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5A11.5 11.5 0 00.5 12 11.5 11.5 0 008.4 23c.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 016 0C17.3 4.6 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A11.5 11.5 0 0023.5 12 11.5 11.5 0 0012 .5z"/></svg>
+      </a>
+      <a href="mailto:kenyamas@usc.edu" aria-label="Email">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 007.5.5l3-3a5 5 0 00-7-7l-1.5 1.5"/><path d="M14 11a5 5 0 00-7.5-.5l-3 3a5 5 0 007 7l1.5-1.5"/></svg>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== CONTACT ===================== -->
+<section class="wrap">
+  <div class="contact-grid">
+
+    <div class="contact-head">
+      <h1>Contact me directly &gt;</h1>
+    </div>
+
+    <form id="contactForm" novalidate>
+      <div class="field-block">
+        <div class="field-title">Name</div>
+        <div class="name-row">
+          <div>
+            <label class="small" for="first">First Name <span class="req">(required)</span></label>
+            <input id="first" name="first" type="text" autocomplete="given-name" required />
+          </div>
+          <div>
+            <label class="small" for="last">Last Name <span class="req">(required)</span></label>
+            <input id="last" name="last" type="text" autocomplete="family-name" required />
+          </div>
+        </div>
+      </div>
+
+      <div class="field-block">
+        <label class="small" for="email">Email <span class="req">(required)</span></label>
+        <input id="email" name="email" type="email" autocomplete="email" required />
+      </div>
+
+      <div class="field-block">
+        <label class="small" for="message">Message <span class="req">(required)</span></label>
+        <textarea id="message" name="message" required></textarea>
+      </div>
+
+      <button class="send-btn" type="submit">Send</button>
+      <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+    </form>
+
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="site-footer">
+  <div class="foot-links">
+    <a href="index.html">Home</a><span>|</span>
+    <a href="portfolio.html">Portfolio</a><span>|</span>
+    <a href="resume.html">Resume</a><span>|</span>
+    <a href="contact.html">Contact</a>
+  </div>
+  <div class="foot-meta">&copy; 2026 &mdash; Ken Yamashiro</div>
+  <div class="foot-social">
+    <a href="https://www.linkedin.com/in/ken-yamashiro" target="_blank" rel="noopener" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 0H5a5 5 0 00-5 5v14a5 5 0 005 5h14a5 5 0 005-5V5a5 5 0 00-5-5zM8 19H5V8h3v11zM6.5 6.7A1.8 1.8 0 116.5 3a1.8 1.8 0 010 3.7zM20 19h-3v-5.6c0-3.4-4-3.1-4 0V19h-3V8h3v1.8c1.4-2.6 7-2.8 7 2.5V19z"/></svg>
+    </a>
+    <a href="https://github.com/KenYam4" target="_blank" rel="noopener" aria-label="GitHub">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5A11.5 11.5 0 00.5 12 11.5 11.5 0 008.4 23c.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 016 0C17.3 4.6 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A11.5 11.5 0 0023.5 12 11.5 11.5 0 0012 .5z"/></svg>
+    </a>
+    <a href="mailto:kenyamas@usc.edu" aria-label="Email">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 007.5.5l3-3a5 5 0 00-7-7l-1.5 1.5"/><path d="M14 11a5 5 0 00-7.5-.5l-3 3a5 5 0 007 7l1.5-1.5"/></svg>
+    </a>
+  </div>
+</footer>
+
+<script>
+  // Mobile menu
+  var btn = document.getElementById('menuBtn');
+  var nav = document.getElementById('nav');
+  if (btn && nav) btn.addEventListener('click', function () { nav.classList.toggle('open'); });
+
+  // --- Contact form ---
+  // Leave FORM_ENDPOINT empty to open the visitor's email app.
+  // Or paste a Formspree URL (e.g. "https://formspree.io/f/abcdwxyz") to collect on-page.
+  var FORM_ENDPOINT = "";
+  var YOUR_EMAIL = "kenyamas@usc.edu";
+
+  var form = document.getElementById('contactForm');
+  var status = document.getElementById('formStatus');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var first = form.first.value.trim();
+    var last = form.last.value.trim();
+    var email = form.email.value.trim();
+    var message = form.message.value.trim();
+    if (!first || !last || !email || !message) { status.textContent = "Please fill in every field."; return; }
+
+    if (FORM_ENDPOINT) {
+      status.textContent = "Sending…";
+      fetch(FORM_ENDPOINT, { method: "POST", headers: { Accept: "application/json" }, body: new FormData(form) })
+        .then(function (res) {
+          if (res.ok) { form.reset(); status.textContent = "Thanks — your message was sent."; }
+          else { status.textContent = "Something went wrong. Try emailing me directly."; }
+        })
+        .catch(function () { status.textContent = "Network error. Try emailing me directly."; });
+    } else {
+      var subject = encodeURIComponent("Portfolio message from " + first + " " + last);
+      var body = encodeURIComponent(message + "\n\n— " + first + " " + last + " (" + email + ")");
+      window.location.href = "mailto:" + YOUR_EMAIL + "?subject=" + subject + "&body=" + body;
+      status.textContent = "Opening your email app…";
+    }
+  });
+</script>
+</body>
+</html>

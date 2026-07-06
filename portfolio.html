@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Portfolio — Ken</title>
+<meta name="description" content="Engineering project portfolio." />
+
+<!-- ============================================================
+     HOW TO EDIT
+     • Each project lives in its own <a class="card"> block below —
+       copy/delete a block to add or remove a project.
+     • Images: put files in an "images" folder next to this file
+       (proj1.jpg ... proj6.jpg). Missing images show a placeholder.
+     • Optional top banner: images/portfolio-banner.jpg
+       (if absent, it just doesn't show).
+     ============================================================ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --ink: #141414;
+    --ink-soft: #5c5c5c;
+    --line: #e4e4e0;
+    --accent: #2f4f86;
+    --hero-dark: #06080f;
+    --display: "Oswald", "Arial Narrow", system-ui, sans-serif;
+    --body: "Inter", system-ui, sans-serif;
+    --maxw: 1240px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; font-family: var(--body); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  img { display: block; max-width: 100%; }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 32px; }
+
+  /* ---------- NAV (solid, inner page) ---------- */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255,255,255,0.95); backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 18px 40px;
+  }
+  .brand {
+    font-family: var(--display); font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.03em; font-size: 1.2rem; color: var(--ink); white-space: nowrap;
+  }
+  .brand:hover { text-decoration: none; }
+  .nav-right { display: flex; align-items: center; gap: 30px; }
+  .nav-links { display: flex; align-items: center; gap: 30px; }
+  .nav-links a { color: var(--ink-soft); font-size: 1.02rem; font-weight: 400; }
+  .nav-links a:hover { text-decoration: none; color: var(--ink); }
+  .nav-links a.active { color: var(--ink); text-decoration: underline; text-underline-offset: 8px; }
+  .nav-social { display: flex; align-items: center; gap: 18px; }
+  .nav-social a { color: var(--ink); display: flex; }
+  .nav-social a:hover { color: var(--accent); }
+  .nav-social svg { width: 20px; height: 20px; }
+  .menu-btn { display: none; background: none; border: 0; cursor: pointer; width: 30px; height: 30px; padding: 0; }
+  .menu-btn span { display: block; height: 2px; background: var(--ink); margin: 6px 0; }
+
+  /* ---------- BANNER (optional) ---------- */
+  .banner { width: 100%; height: 340px; object-fit: cover; background: var(--hero-dark); }
+
+  /* ---------- PAGE HEADING ---------- */
+  .page-title {
+    font-family: var(--display); font-weight: 700; text-transform: uppercase;
+    text-align: center; font-size: clamp(2.4rem, 6vw, 5rem); letter-spacing: 0.01em;
+    margin: 0; padding: 72px 24px 8px;
+  }
+
+  .page-subtitle {
+  text-align: center; color: var(--ink-soft);
+  font-size: 1.05rem; margin: 0; padding: 0 24px 8px;
+}
+
+  /* ---------- GRID ---------- */
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px 30px; padding: 48px 0 16px; }
+  .card { display: flex; flex-direction: column; color: var(--ink); }
+  .card:hover { text-decoration: none; }
+  .card-media { overflow: hidden; aspect-ratio: 4 / 3; background: var(--bg-alt, #f1f1ef); border: 1px solid var(--line); }
+  .card-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s cubic-bezier(.2,.6,.2,1); }
+  .card:hover .card-media img { transform: scale(1.04); }
+  .card-cap { margin-top: 14px; font-size: 1rem; line-height: 1.5; color: var(--ink); }
+
+  /* ---------- FOOTER ---------- */
+  .site-footer { padding: 56px 24px; text-align: center; border-top: 1px solid var(--line); margin-top: 40px; }
+  .foot-links { margin-bottom: 18px; }
+  .foot-links a { color: var(--accent); font-size: 1rem; padding: 0 10px; }
+  .foot-links span { color: var(--ink-soft); }
+  .foot-meta { color: var(--ink); font-size: 0.95rem; margin-bottom: 20px; }
+  .foot-social { display: flex; gap: 20px; justify-content: center; }
+  .foot-social a { color: var(--ink); display: flex; }
+  .foot-social a:hover { color: var(--accent); }
+  .foot-social svg { width: 20px; height: 20px; }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 980px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 860px) {
+    .nav { padding: 16px 24px; }
+    .nav-links, .nav-social { display: none; }
+    .menu-btn { display: block; }
+    .nav.open { flex-direction: column; align-items: flex-start; }
+    .nav.open .nav-links { display: flex; flex-direction: column; gap: 16px; width: 100%; margin-top: 14px; }
+    .nav.open .nav-social { display: flex; margin-top: 14px; }
+  }
+  @media (max-width: 520px) { .grid { grid-template-columns: 1fr; } }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* ---------- PROJECT DETAIL SECTIONS ---------- */
+  #projects { scroll-margin-top: 84px; }
+  .detail { padding: 72px 0; border-top: 1px solid var(--line); scroll-margin-top: 84px; }
+  .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+  .detail-main img { width: 100%; height: auto; border: 1px solid var(--line); background: #f1f1ef; }
+  .detail-body h2 { font-family: var(--display); font-weight: 600; font-size: clamp(1.9rem, 4vw, 3.1rem); line-height: 1.06; margin: 0 0 20px; }
+  .detail-body p { font-size: 1.05rem; margin: 0 0 26px; color: var(--ink); }
+  .detail-gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .detail-gallery img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border: 1px solid var(--line); background: #f1f1ef; }
+  .back-link { display: inline-block; margin-top: 26px; font-size: 0.95rem; font-weight: 500; }
+  @media (max-width: 860px) { .detail-grid { grid-template-columns: 1fr; gap: 28px; } }
+</style>
+</head>
+<body>
+
+<!-- ===================== NAV ===================== -->
+<header class="nav" id="nav">
+  <a class="brand" href="index.html">Ken Yamashiro — Mechanical Engineer</a>
+  <button class="menu-btn" id="menuBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+  <div class="nav-right">
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="portfolio.html" class="active">Portfolio</a>
+      <a href="resume.html">Resume</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-social">
+      <a href="https://www.linkedin.com/in/ken-yamashiro" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 0H5a5 5 0 00-5 5v14a5 5 0 005 5h14a5 5 0 005-5V5a5 5 0 00-5-5zM8 19H5V8h3v11zM6.5 6.7A1.8 1.8 0 116.5 3a1.8 1.8 0 010 3.7zM20 19h-3v-5.6c0-3.4-4-3.1-4 0V19h-3V8h3v1.8c1.4-2.6 7-2.8 7 2.5V19z"/></svg>
+      </a>
+      <a href="https://github.com/KenYam4" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5A11.5 11.5 0 00.5 12 11.5 11.5 0 008.4 23c.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 016 0C17.3 4.6 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A11.5 11.5 0 0023.5 12 11.5 11.5 0 0012 .5z"/></svg>
+      </a>
+      <a href="mailto:kenyamas@usc.edu" aria-label="Email / link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 007.5.5l3-3a5 5 0 00-7-7l-1.5 1.5"/><path d="M14 11a5 5 0 00-7.5-.5l-3 3a5 5 0 007 7l1.5-1.5"/></svg>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== BANNER (optional) ===================== -->
+<img class="banner" src="images/portfolio-banner.jpg" alt="" onerror="this.style.display='none'" />
+
+<!-- ===================== HEADING ===================== -->
+<h1 class="page-title" id="projects">Engineering Projects</h1>
+<p class="page-subtitle">Click on each project to learn more!</p>
+
+<!-- ===================== GRID ===================== -->
+<section class="wrap">
+  <div class="grid">
+
+    <a class="card" href="#project1">
+      <div class="card-media"><img src="images/proj1.jpg" alt="NASA balloon facility"
+        onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27600%27 height=%27450%27%3E%3Crect width=%27600%27 height=%27450%27 fill=%27%232f4f86%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 fill=%27%23fff%27 font-family=%27Inter,sans-serif%27 font-size=%2722%27 font-weight=%27600%27 text-anchor=%27middle%27 dominant-baseline=%27middle%27%3Eproj1.jpg%3C/text%3E%3C/svg%3E'" /></div>
+      <p class="card-cap">NASA Payload for Ultrahigh Energy Observations — Undergraduate Research Assistant. Assisted in the design, testing, and integration of the 
+        Antartic Neutrino detector payload at the NASA Columbia Scientific Balloon Facility.</p>
+    </a>
+
+    <a class="card" href="#project2">
+      <div class="card-media"><img src="images/proj2.jpg" alt="USC Racing powertrain"
+        onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27600%27 height=%27450%27%3E%3Crect width=%27600%27 height=%27450%27 fill=%27%232f4f86%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 fill=%27%23fff%27 font-family=%27Inter,sans-serif%27 font-size=%2722%27 font-weight=%27600%27 text-anchor=%27middle%27 dominant-baseline=%27middle%27%3Eproj3.jpg%3C/text%3E%3C/svg%3E'" /></div>
+      <p class="card-cap">USC Racing (Formula SAE) — Powertrain Engineer. Designed, manufactured, and tested the Powertrain and cooling subsystem for the
+        SCR26 race car (600cc, inline 4-cylinder Yamaha R6), assisting in the team securing 7th out of 110 teams overall at the 2026 FSAE Michigan competition.</p>
+    </a>
+
+    <a class="card" href="#project3">
+      <div class="card-media"><img src="images/proj3.jpg" alt="VTOL"
+        onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27600%27 height=%27450%27%3E%3Crect width=%27600%27 height=%27450%27 fill=%27%232f4f86%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 fill=%27%23fff%27 font-family=%27Inter,sans-serif%27 font-size=%2722%27 font-weight=%27600%27 text-anchor=%27middle%27 dominant-baseline=%27middle%27%3Eproj2.jpg%3C/text%3E%3C/svg%3E'" /></div>
+      <p class="card-cap">Bio-Inspired Aerodynamics — Undergraduate Researcher/Assistant. Designed, Simulated, and tested bio-inspired wing configurations for improved aerodynamic performance in unmanned aerial vehicles at lower Reynolds numbers. Utilized computational fluid dynamics (CFD) simulations and wind tunnel testing to optimize lift-to-drag ratios.</p>
+    </a>
+
+    <a class="card" href="#project4">
+      <div class="card-media"><img src="images/proj4.jpg" alt="CORALS"
+        onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27600%27 height=%27450%27%3E%3Crect width=%27600%27 height=%27450%27 fill=%27%232f4f86%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 fill=%27%23fff%27 font-family=%27Inter,sans-serif%27 font-size=%2722%27 font-weight=%27600%27 text-anchor=%27middle%27 dominant-baseline=%27middle%27%3Eproj4.jpg%3C/text%3E%3C/svg%3E'" /></div>
+      <p class="card-cap">Cosmic Ray Lunar Sounder (CoRaLS) — Undergraduate Researcher. CoRaLS is a spacecraft antenna concept used to detect subsurface 
+        ice on the lunar surface using RF signals. I assisted in fabricating proprietary antenna prototypes and in designing a deployable assembly for the mission.</p>
+    </a>
+
+    <a class="card" href="#project5">
+      <div class="card-media"><img src="images/proj5.jpg" alt="Askaryian Calorimeter Experiment"
+        onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27600%27 height=%27450%27%3E%3Crect width=%27600%27 height=%27450%27 fill=%27%232f4f86%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 fill=%27%23fff%27 font-family=%27Inter,sans-serif%27 font-size=%2722%27 font-weight=%27600%27 text-anchor=%27middle%27 dominant-baseline=%27middle%27%3Eproj4.jpg%3C/text%3E%3C/svg%3E'" /></div>
+      <p class="card-cap">Askaryian Calorimeter Experiment (ACE) — Undergraduate Researcher. Designed and fabricated an experimental RF (radio frequency) prototype assembly utilizing
+         the Askaryan effect to study the properties of high-energy particles.</p>
+    </a>
+
+    <a class="card" href="#project6">
+      <div class="card-media"><img src="images/proj6.jpg" alt="AI FEA"
+        onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27600%27 height=%27450%27%3E%3Crect width=%27600%27 height=%27450%27 fill=%27%232f4f86%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 fill=%27%23fff%27 font-family=%27Inter,sans-serif%27 font-size=%2722%27 font-weight=%27600%27 text-anchor=%27middle%27 dominant-baseline=%27middle%27%3Eproj6.jpg%3C/text%3E%3C/svg%3E'" /></div>
+      <p class="card-cap">AI and Machine learning in FEA — Undergraduate Intern. Conducted model predictions onfinite element analysis for thin walled shell structures
+         using machine learning and artificial intelligence techniques to optimize and lightweight packaging designs for commercial water bottles, with the goal of 
+         reducing Co2 emissions and environmental impacts.</p>
+    </a>
+
+    <a class="card" href="#project7">
+      <div class="card-media"><img src="images/proj7.jpg" alt="PLA infill Characterization study"
+        onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27600%27 height=%27450%27%3E%3Crect width=%27600%27 height=%27450%27 fill=%27%232f4f86%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 fill=%27%23fff%27 font-family=%27Inter,sans-serif%27 font-size=%2722%27 font-weight=%27600%27 text-anchor=%27middle%27 dominant-baseline=%27middle%27%3Eproj5.jpg%3C/text%3E%3C/svg%3E'" /></div>
+      <p class="card-cap">PLA Infill Characterization study — Designed and tested various FDM PLA infill patterns to analyze the mechanical properties and performance under different\
+         loading conditions throught the application of Euler buckling analysis; interlayer effects and MATLAB data reduction.</p>
+    </a>
+
+    <a class="card" href="#project8">
+      <div class="card-media"><img src="images/proj8.jpg" alt="Lunar Actuator"
+        onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27600%27 height=%27450%27%3E%3Crect width=%27600%27 height=%27450%27 fill=%27%232f4f86%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 fill=%27%23fff%27 font-family=%27Inter,sans-serif%27 font-size=%2722%27 font-weight=%27600%27 text-anchor=%27middle%27 dominant-baseline=%27middle%27%3Eproj6.jpg%3C/text%3E%3C/svg%3E'" /></div>
+      <p class="card-cap">Lunar Regolith Exploration Actuator — Undergraduate Researcher. Designed and tested a actuator system to test and characterize
+        various RF properties on lunar samples for future lunar exploration missions.</p>
+    </a>
+
+
+    <a class="card" href="#project9">
+      <div class="card-media"><img src="images/proj9.jpg" alt="Thermovacuum Chamber"
+        onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27600%27 height=%27450%27%3E%3Crect width=%27600%27 height=%27450%27 fill=%27%232f4f86%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 fill=%27%23fff%27 font-family=%27Inter,sans-serif%27 font-size=%2722%27 font-weight=%27600%27 text-anchor=%27middle%27 dominant-baseline=%27middle%27%3Eproj9.jpg%3C/text%3E%3C/svg%3E'" /></div>
+      <p class="card-cap">Thermovacuum Chamber Redesign — Undergraduate Researcher. Resigned and engineered cast Acryllic Thermovacuum chamber door to simulate lunar conditions and facilitate lunar sample testing.
+         Door is designed, simulated with FEA, and tested to withstand pressures of up to 1 x 10^-5 torr .</p>
+    </a>
+
+    <a class="card" href="#project10">
+      <div class="card-media"><img src="images/proj10.jpg" alt="CNC and Manufacturing"
+        onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27600%27 height=%27450%27%3E%3Crect width=%27600%27 height=%27450%27 fill=%27%232f4f86%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 fill=%27%23fff%27 font-family=%27Inter,sans-serif%27 font-size=%2722%27 font-weight=%27600%27 text-anchor=%27middle%27 dominant-baseline=%27middle%27%3Eproj10.jpg%3C/text%3E%3C/svg%3E'" /></div>
+      <p class="card-cap">CNC and Manufacturing — Undergraduate Researcher. Fabricated 700+ parts and flight hardware for various projects. Materials that I am familiar with is 2024,
+         6061-T6, 7075-T6 Aluminum, Brass 360, Copper 101, 100, Nomex Carbon Fiber Honeycomb, Carbon Fiber, Titanium, Mild Steel, and several other materials.</p>
+    </a>
+
+    <a class="card" href="#project11">
+      <div class="card-media"><img src="images/proj11.jpg" alt="UHDT"
+        onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27600%27 height=%27450%27%3E%3Crect width=%27600%27 height=%27450%27 fill=%27%232f4f86%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 fill=%27%23fff%27 font-family=%27Inter,sans-serif%27 font-size=%2722%27 font-weight=%27600%27 text-anchor=%27middle%27 dominant-baseline=%27middle%27%3Eproj11.jpg%3C/text%3E%3C/svg%3E'" /></div>
+      <p class="card-cap">University of Hawaii Drone Technologies (UHDT) - Assistant Hardware Lead. Develop concepts and designs for new landing gears 
+        and drone arms to fit the updated requirements for the 2025 Student Unmanned Aerial Systems (SUAS) Competition.</p>
+    </a>
+
+    <a class="card" href="#project12">
+      <div class="card-media"><img src="images/proj12.jpg" alt="Stair Climbing Robot"
+        onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27600%27 height=%27450%27%3E%3Crect width=%27600%27 height=%27450%27 fill=%27%232f4f86%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 fill=%27%23fff%27 font-family=%27Inter,sans-serif%27 font-size=%2722%27 font-weight=%27600%27 text-anchor=%27middle%27 dominant-baseline=%27middle%27%3Eproj12.jpg%3C/text%3E%3C/svg%3E'" /></div>
+      <p class="card-cap">Stair Climbing Robot — Worked on a project to design and build a robot capable of climbing stairs and to compete in the University of Hawaii's Stair climbing competition.</p>
+    </a>
+
+
+  </div>
+</section>
+
+
+<!-- ===================== PROJECT DETAILS ===================== -->
+<!-- One <section> per project. Edit the text, and add images:
+     images/projN.jpg (main) and images/projN-b.jpg / projN-c.jpg (gallery). -->
+
+<section class="detail" id="project1">
+  <div class="wrap">
+    <div class="detail-grid">
+      <div class="detail-main">
+        <img src="images/proj1-a.jpg" alt="Payload for Ultrahigh Energy Observations (PUEO)"
+          onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27800%27 height=%27600%27%3E%3Crect width=%27800%27 height=%27600%27 fill=%27%232f4f86%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 fill=%27%23fff%27 font-family=%27Inter,sans-serif%27 font-size=%2722%27 font-weight=%27600%27 text-anchor=%27middle%27 dominant-baseline=%27middle%27%3Eproj1.jpg%3C/text%3E%3C/svg%3E'" />
+      </div>
+      <div class="detail-body">
+        <h2>Payload for Ultrahigh Energy Observations (PUEO)</h2>
+        <p>From May to July 2025, I supported final production and payload integration of the <a href="https://pueo.space/" target="_blank" rel="noopener">Payload for Ultrahigh Energy Observations (PUEO)</a> at NASA's 
+          Columbia Scientific Balloon Facility in Palestine, TX. PUEO is a NASA Pioneers mission studying Askaryan emission from ultra-high-energy neutrinos
+           interacting with the Antarctic ice. Working alongside 50+ researchers from 11 universities across the U.S., UK, and Taiwan, I performed subsystem 
+           integration, surface preparation, and finishing on 300+ precision components, resolved tolerance nonconformities, conducted part testing, and drafted
+            engineering documentation supporting the integration effort. PUEO launched in December 2025 and flew above Antarctica for over a month of data collection.</p>
+        <div class="detail-gallery">
+          <img src="images/proj1-b.jpg" alt="" onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27600%27 height=%27450%27%3E%3Crect width=%27600%27 height=%27450%27 fill=%27%232f4f86%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 fill=%27%23fff%27 font-family=%27Inter,sans-serif%27 font-size=%2722%27 font-weight=%27600%27 text-anchor=%27middle%27 dominant-baseline=%27middle%27%3Eproj1-b.jpg%3C/text%3E%3C/svg%3E'" />
+          <img src="images/proj1-c.jpg" alt="" onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27600%27 height=%27450%27%3E%3Crect width=%27600%27 height=%27450%27 fill=%27%232f4f86%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 fill=%27%23fff%27 font-family=%27Inter,sans-serif%27 font-size=%2722%27 font-weight=%27600%27 text-anchor=%27middle%27 dominant-baseline=%27middle%27%3Eproj1-c.jpg%3C/text%3E%3C/svg%3E'" />
+        </div>
+        <a class="back-link" href="#projects">&uarr; Back to all projects</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="detail" id="project2">
+  <div class="wrap">
+    <div class="detail-grid">
+      <div class="detail-main">
+        <img src="images/proj2-a.jpg" alt="USC Racing — Formula SAE Powertrain"
+          onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27800%27 height=%27600%27%3E%3Crect width=%27800%27 height=%27600%27 fill=%27%232f4f86%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 fill=%27%23fff%27 font-family=%27Inter,sans-serif%27 font-size=%2722%27 font-weight=%27600%27 text-anchor=%27middle%27 dominant-baseline=%27middle%27%3Eproj2.jpg%3C/text%3E%3C/svg%3E'" />
+      </div>
+      <div class="detail-body">
+        <h2>USC Racing — Formula SAE</h2>
+        <p>Since August 2025, I've been a powertrain engineer on <a href="pdfs/usc-racing.pdf" target="_blank">USC Racing</a>, USC's Formula SAE team. Formula SAE is an intercollegiate competition in which student teams design,
+           build, and race a formula-style car, judged on both dynamic performance and engineering design. I design, manufacture, and test various powertrain components for
+            the SCR26 car (600cc inline-4 Yamaha R6), primarily on the cooling subsystem. For SCR26, I sized the radiator using LMTD and ε-NTU heat-exchanger analysis to characterize coolant
+             temperatures and heat rejection, and used empirical analysis from MoTeC endurance data to validate performance. I also manufactured the cooling lines and subsystem.
+              At the 2026 Michigan competition, I was one of a handful of members selected from our 60+ person team to present at the design event, where the team finished 7th of
+               roughly 110 U.S. and international teams.</p>
+        <div class="detail-gallery">
+          <img src="images/proj2-b.jpg" alt="" onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27600%27 height=%27450%27%3E%3Crect width=%27600%27 height=%27450%27 fill=%27%232f4f86%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 fill=%27%23fff%27 font-family=%27Inter,sans-serif%27 font-size=%2722%27 font-weight=%27600%27 text-anchor=%27middle%27 dominant-baseline=%27middle%27%3Eproj2-b.jpg%3C/text%3E%3C/svg%3E'" />
+          <img src="images/proj2-c.jpg" alt="" onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27600%27 height=%27450%27%3E%3Crect width=%27600%27 height=%27450%27 fill=%27%232f4f86%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 fill=%27%23fff%27 font-family=%27Inter,sans-serif%27 font-size=%2722%27 font-weight=%27600%27 text-anchor=%27middle%27 dominant-baseline=%27middle%27%3Eproj2-c.jpg%3C/text%3E%3C/svg%3E'" />
+        </div>
+        <a class="back-link" href="#projects">&uarr; Back to all projects</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="detail" id="project3">
+  <div class="wrap">
+    <div class="detail-grid">
+      <div class="detail-main">
+        <img src="images/proj3-a.jpg" alt="Bio-Inspired Aerodynamics"
+          onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27800%27 height=%27600%27%3E%3Crect width=%27800%27 height=%27600%27 fill=%27%232f4f86%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 fill=%27%23fff%27 font-family=%27Inter,sans-serif%27 font-size=%2722%27 font-weight=%27600%27 text-anchor=%27middle%27 dominant-baseline=%27middle%27%3Eproj3.jpg%3C/text%3E%3C/svg%3E'" />
+      </div>
+      <div class="detail-body">
+        <h2>Bio-Inspired Aerodynamics Lab</h2>
+        <p>I currently work as an undergraduate assistant in Dr. Penkova's Unmanned Aerial Systems lab at USC Viterbi, studying bio-inspired aerodynamics for low-Reynolds-number autonomous VTOL drones.
+           Currently, as the lead student engineer for one of her projects, I design, simulate, and test bio-inspired wing configurations, using CFD analysis 
+           to characterize and improve lift-to-drag performance. I also develop the electrical and flight-critical systems enabling VTOL flight. Due to an NDA, unfortunately, no images or performance data can be shared publicly.</p>
+        <div class="detail-gallery">
+          <img src="images/proj3-b.jpg" alt="" onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27600%27 height=%27450%27%3E%3Crect width=%27600%27 height=%27450%27 fill=%27%232f4f86%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 fill=%27%23fff%27 font-family=%27Inter,sans-serif%27 font-size=%2722%27 font-weight=%27600%27 text-anchor=%27middle%27 dominant-baseline=%27middle%27%3Eproj3-b.jpg%3C/text%3E%3C/svg%3E'" />
+          <img src="images/proj3-c.jpg" alt="" onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27600%27 height=%27450%27%3E%3Crect width=%27600%27 height=%27450%27 fill=%２３２f4f86%２７/%３Ｅ%３Ctext x=%２７50%２5%２７ y=%２７50%２5%２７ fill=%２７%２３fff%２７ font-family=%２７Inter,sans-serif%２７ font-size=%２７ twenty-two %２７ font-weight=%２７600%２７ text-anchor=%２７middle%２ dominant-baseline=%２７middle%２%３Eproj3-c.jpg%３C/text%３E%３C/svg%３E'" />
+        </div>
+        <a class="back-link" href="#projects">&uarr; Back to all projects</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="detail" id="project4">
+  <div class="wrap">
+    <div class="detail-grid">
+      <div class="detail-main">
+        <img src="images/proj4-a.jpg" alt="Cosmic Ray Lunar Sounder (CoRaLS)"
+          onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27800%27 height=%27600%27%3E%3Crect width=%27800%27 height=%27600%27 fill=%27%232f4f86%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 fill=%27%23fff%27 font-family=%27Inter,sans-serif%27 font-size=%2722%27 font-weight=%27600%27 text-anchor=%27middle%27 dominant-baseline=%27middle%27%3Eproj3.jpg%3C/text%3E%3C/svg%3E'" />
+      </div>
+      <div class="detail-body">
+        <h2>Cosmic Ray Lunar Sounder (CoRaLS)</h2>
+        <p>CoRaLS (Cosmic Ray Lunar Sounder) is a spacecraft concept developed to detect water ice buried beneath the lunar surface. When ultra-high-energy cosmic rays strike the Moon,
+           they produce brief radio pulses in the regolith (Askaryan emission); allowing for mapping of ice deposits for targeted for future crewed missions. I fabricated prototypes of
+            the mission's proprietary antenna design. I also contributed to the design of a deployable assembly that stows the antennas compactly within the launch envelope and unfolds them to
+             full aperture on orbit, balancing stowed volume, deployment reliability, and the antenna's RF geometry, which can't be distorted by the supporting structure.</p>
+        <div class="detail-gallery">
+          <img src="images/proj4-b.jpg" alt="" onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27600%27 height=%27450%27%3E%3Crect width=%27600%27 height=%27450%27 fill=%27%232f4f86%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 fill=%27%23fff%27 font-family=%27Inter,sans-serif%27 font-size=%2722%27 font-weight=%27600%27 text-anchor=%27middle%27 dominant-baseline=%27middle%27%3Eproj4-b.jpg%3C/text%3E%3C/svg%3E'" />
+          <img src="images/proj4-c.jpg" alt="" onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27600%27 height=%27450%27%3E%3Crect width=%27600%27 height=%27450%27 fill=%27%232f4f86%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 fill=%27%23fff%27 font-family=%27Inter,sans-serif%27 font-size=%2722%27 font-weight=%27600%27 text-anchor=%27middle%27 dominant-baseline=%27middle%27%3Eproj4-c.jpg%3C/text%3E%3C/svg%3E'" />
+        </div>
+        <a class="back-link" href="#projects">&uarr; Back to all projects</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="detail" id="project5">
+  <div class="wrap">
+    <div class="detail-grid">
+      <div class="detail-main">
+        <img src="images/proj5-a.jpg" alt="Askaryan Calorimeter Experiment (mACE)"
+          onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27800%27 height=%27600%27%3E%3Crect width=%27800%27 height=%27600%27 fill=%27%232f4f86%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 fill=%27%23fff%27 font-family=%27Inter,sans-serif%27 font-size=%2722%27 font-weight=%27600%27 text-anchor=%27middle%27 dominant-baseline=%27middle%27%3Eproj4.jpg%3C/text%3E%3C/svg%3E'" />
+      </div>
+      <div class="detail-body">
+        <h2>Askaryan Calorimeter Experiment (ACE)</h2>
+        <p>The Askaryan Calorimeter Experiment (ACE) is a Fermilab/UH High Energy Physics Group project studying the Askaryan effect as a compact, 
+          inexpensive way to measure particle energies. I designed and fabricated the initial experimental RF test assemblies, built around a specific
+           copper antenna geometry; resolving part tolerances, assembly fit, and manufacturability, including accurately machining copper sheet under 
+           0.125" thick without distorting the geometry the RF design depends on. I also performed FEA on the assembly to verify structural stability 
+           and confirm the antenna geometry would hold within tolerance, preserving waveform compliance.</p>
+        <div class="detail-gallery">
+          <img src="images/proj5-b.jpg" alt="" onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27600%27 height=%27450%27%3E%3Crect width=%27600%27 height=%27450%27 fill=%27%232f4f86%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 fill=%27%23fff%27 font-family=%27Inter,sans-serif%27 font-size=%2722%27 font-weight=%27600%27 text-anchor=%27middle%27 dominant-baseline=%27middle%27%3Eproj5-b.jpg%3C/text%3E%3C/svg%3E'" />
+          <img src="images/proj5-c.jpg" alt="" onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27600%27 height=%27450%27%3E%3Crect width=%27600%27 height=%27450%27 fill=%27%２３２f4f86%２７/%３E%３Ctext x=%２７50%２5%２７ y=%２７50%２5%２７ fill=%２７%２３fff%２７ font-family=%２７Inter,sans-serif%２７ font-size=%２７ twenty-two %２７ font-weight=%２７600 %２７ text-anchor=%２７middle %２７ dominant-baseline=%２７middle %２７%３Eproj5-c.jpg %３C/text %３E%３C/svg %３E'" />
+        </div>
+        <a class="back-link" href="#projects">&uarr; Back to all projects</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="detail" id="project6">
+  <div class="wrap">
+    <div class="detail-grid">
+      <div class="detail-main">
+        <img src="images/proj6-a.jpg" alt="AI & Machine Learning in FEA"
+          onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27800%27 height=%27600%27%3E%3Crect width=%27800%27 height=%27600%27 fill=%27%232f4f86%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 fill=%27%23fff%27 font-family=%27Inter,sans-serif%27 font-size=%2722%27 font-weight=%27600%27 text-anchor=%27middle%27 dominant-baseline=%27middle%27%3Eproj5.jpg%3C/text%3E%3C/svg%3E'" />
+      </div>
+      <div class="detail-body">
+        <h2>AI & Machine Learning in FEA</h2>
+        <p>As an packaging research and development intern at Niagara Bottling, I work on FEA-driven lightweighting of thin-walled shell structures where 
+          reducing material directly cuts cost, CO₂ emissions, and environmental impact. Through CAD modeling of different lightweigthing designs and running 
+          simulations through ANSYS, I performed sensitivity analysis across various lightweighting design parameters to identify which geometric and material 
+          variables most influence structural performance, then applied machine learning to those parameter relationships to build predictive models that guide
+           future bottle designs without requiring a full FEA run for every candidate geometry.</p>
+        <div class="detail-gallery">
+          <img src="images/proj6-b.jpg" alt="" onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27600%27 height=%27450%27%3E%3Crect width=%27600%27 height=%27450%27 fill=%27%232f4f86%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 fill=%27%23fff%27 font-family=%27Inter,sans-serif%27 font-size=%2722%27 font-weight=%27600%27 text-anchor=%27middle%27 dominant-baseline=%27middle%27%3Eproj6-b.jpg%3C/text%3E%3C/svg%3E'" />
+        </div>
+        <a class="back-link" href="#projects">&uarr; Back to all projects</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="detail" id="project7">
+  <div class="wrap">
+    <div class="detail-grid">
+      <div class="detail-main">
+        <img src="images/proj7-a.jpg" alt="PLA Infill Characterization Study"
+          onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27800%27 height=%27600%27%3E%3Crect width=%27800%27 height=%27600%27 fill=%27%232f4f86%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 fill=%27%23fff%27 font-family=%27Inter,sans-serif%27 font-size=%2722%27 font-weight=%27600%27 text-anchor=%27middle%27 dominant-baseline=%27middle%27%3Eproj6.jpg%3C/text%3E%3C/svg%3E'" />
+      </div>
+      <div class="detail-body">
+        <h2>PLA Infill Characterization Study</h2>
+        <p>For my AME 341b instrumentation course, my team investigated how different <a href="pdfs/AME341B.pdf" target="_blank">3D printed infill pattern and end conditions affect the buckling </a>
+          behavior of slender PLA columns. We tested 36 FDM-printed specimens across three infill patterns (linear, hexagonal, tri-hexagonal) and three 
+          end conditions (fixed-fixed, fixed-pinned, pinned-pinned), comparing measured critical loads and effective moduli against Euler buckling theory.
+           To run the tests, we modified a tensile-testing rig to apply compressive loads. I was in charge of designing the experimental setup to mount the
+            specimens and prevent off-axis bending. I also reduced the stress-strain data in MATLAB, extracting critical buckling loads, elastic moduli, and
+             effective length constants. Length-varying trials matched Euler predictions within 4–8%, while infill comparisons showed no statistically 
+             significant strength difference, a finding that highlighted how much FDM manufacturing variability (interlayer adhesion, print defects) dominates
+              over infill geometry at this scale.</p>
+        <div class="detail-gallery">
+          <img src="images/proj7-b.jpg" alt="" onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27600%27 height=%27450%27%3E%3Crect width=%27600%27 height=%27450%27 fill=%27%232f4f86%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 fill=%27%23fff%27 font-family=%27Inter,sans-serif%27 font-size=%2722%27 font-weight=%27600%27 text-anchor=%27middle%27 dominant-baseline=%27middle%27%3Eproj7-b.jpg%3C/text%3E%3C/svg%3E'" />
+          <img src="images/proj7-c.jpg" alt="" onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27600%27 height=%27450%27%3E%3Crect width=%27600%27 height=%27450%27 fill=%27%２３２f4f86%２７/%3E%3Ctext x=%２７50%２5%２７ y=%２７50%２5%２７ fill=%２７%２３fff%２７ font-family=%２７Inter,sans-serif%２７ font-size=%２７ twenty-two %２７ font-weight=%２７600%２７ text-anchor=%２７middle%２７ dominant-baseline=%２７middle%２ %３Eproj seven -c.jpg %３C/text %３E %３C/svg %３E '" />
+        </div>
+        <a class="back-link" href="#projects">&uarr; Back to all projects</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="detail" id="project8">
+  <div class="wrap">
+    <div class="detail-grid">
+      <div class="detail-main">
+        <img src="images/proj8-a.jpg" alt="Lunar Regolith Exploration Actuator"
+          onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27800%27 height=%27600%27%3E%3Crect width=%27800%27 height=%27600%27 fill=%27%232f4f86%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 fill=%27%23fff%27 font-family=%27Inter,sans-serif%27 font-size=%2722%27 font-weight=%27600%27 text-anchor=%27middle%27 dominant-baseline=%27middle%27%3Eproj7.jpg%3C/text%3E%3C/svg%3E'" />
+      </div>
+      <div class="detail-body">
+        <h2>Lunar Regolith Exploration Actuator</h2>
+        <p>This project supports RF characterization of lunar regolith samples for future lunar-exploration missions. I designed and fabricated a
+           linear actuator mount assembly used to position samples inside a large resonance chamber (39.5" × 20" × 3.9") that I also fabricated, 
+           allowing the sample–RF interaction to be measured at precisely controlled positions. The mounts went through two design iterations: V1 
+           for the Actuonix P8 50 mm stroke actuator and V2 for the 100 mm stroke version, with V2 redesigned to integrate directly onto the resonance 
+           chamber. The system uses high-precision stepper-driven linear actuators, giving fine, repeatable position control during measurements.</p>
+        <div class="detail-gallery">
+          <img src="images/proj8-b.jpg" alt="" onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27600%27 height=%27450%27%3E%3Crect width=%27600%27 height=%27450%27 fill=%27%232f4f86%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 fill=%27%23fff%27 font-family=%27Inter,sans-serif%27 font-size=%2722%27 font-weight=%27600%27 text-anchor=%27middle%27 dominant-baseline=%27middle%27%3Eproj8-b.jpg%3C/text%3E%3C/svg%3E'" />
+          <img src="images/proj8-c.jpg" alt="" onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27600%27 height=%27450%27%3E%3Crect width=%２７600%２７ height=%２７450%２７ fill=%２７%２３２f4f86%２７/%３E%３Ctext x=%２７50%２5%２７ y=%２７50%２5%２７ fill=%２７%２３fff%２７ font-family=%２７Inter,sans-serif%２７ font-size=%２７ twenty-two %２７ font-weight=%２７600%２７ text-anchor=%２十七条middle%２十七条 dominant-baseline=%２十七条middle%２ %３Eproj eight -c.jpg %３C/text %３E %３C/svg %３E '" />
+        </div>
+        <a class="back-link" href="#projects">&uarr; Back to all projects</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="detail" id="project9">
+  <div class="wrap">
+    <div class="detail-grid">
+      <div class="detail-main">
+        <img src="images/proj9-a.jpg" alt="Thermovacuum Chamber Redesign"
+          onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27800%27 height=%27600%27%3E%3Crect width=%27800%27 height=%27600%27 fill=%27%232f4f86%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 fill=%27%23fff%27 font-family=%27Inter,sans-serif%27 font-size=%2722%27 font-weight=%27600%27 text-anchor=%27middle%27 dominant-baseline=%27middle%27%3Eproj8.jpg%3C/text%3E%3C/svg%3E'" />
+      </div>
+      <div class="detail-body">
+        <h2>Thermovacuum Chamber Redesign</h2>
+        <p>I redesigned the door of a thermovacuum chamber used to simulate lunar conditions for sample and component testing for flight conditions, 
+          replacing the original with a cast-acrylic design that gives full visibility into the chamber during experiments, including upcoming lunar-sample
+           actuation tests. I designed the door, validated it with FEA, and tested it under vacuum down to 1 × 10⁻⁵ Torr. I machined the clamping mechanism,
+            cast-acrylic window, and supporting hardware in-house; the O-ring groove was the one outsourced feature, as it exceeded our CNC's work envelope.</p>
+        <div class="detail-gallery">
+          <img src="images/proj9-b.jpg" alt="" onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27600%27 height=%27450%27%3E%3Crect width=%27600%27 height=%27450%27 fill=%27%232f4f86%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 fill=%27%23fff%27 font-family=%27Inter,sans-serif%27 font-size=%2722%27 font-weight=%27600%27 text-anchor=%27middle%27 dominant-baseline=%27middle%27%3Eproj9-b.jpg%3C/text%3E%3C/svg%3E'" />
+          <img src="images/proj9-c.jpg" alt="" onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27600%27 height=%27450%27%3E%3Crect width=%27600%27 height=%２７450%２７ fill=%２７%２３２f4f86%２７/%３E%３Ctext x=%２７50%２5%２７ y=%２７50%２5%２７ fill=%２’) %２３fff %２７ font-family=%２’) %２３Inter,sans-serif %２７ font-size=%２’) %２３ twenty-two %２７ font-weight=%２’) %２３600 %２７ text-anchor=%２’) %２３middle %２’) %２３ dominant-baseline=%２’) %２丙middle %２ %３Eproj nine -c.jpg %３C/text %３E %３C/svg %３E '" />
+        </div>
+        <a class="back-link" href="#projects">&uarr; Back to all projects</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="detail" id="project10">
+  <div class="wrap">
+    <div class="detail-grid">
+      <div class="detail-main">
+        <img src="images/proj10-a.jpg" alt="CNC & Manufacturing"
+          onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27800%27 height=%27600%27%3E%3Crect width=%27800%27 height=%27600%27 fill=%27%232f4f86%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 fill=%27%23fff%27 font-family=%27Inter,sans-serif%27 font-size=%2722%27 font-weight=%27600%27 text-anchor=%27middle%27 dominant-baseline=%27middle%27%3Eproj9.jpg%3C/text%3E%3C/svg%3E'" />
+      </div>
+      <div class="detail-body">
+        <h2>CNC & Manufacturing</h2>
+        <p>Fabricated 700+ parts and flight hardware across multiple research projects. Materials I've worked with include 2024, 6061-T6, and 7075-T6 aluminum, brass 360, copper 101/100, Nomex carbon-fiber honeycomb, carbon fiber, titanium, mild steel, and more.</p>
+        <div class="detail-gallery">
+          <img src="images/proj10-b.jpg" alt="" onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27600%27 height=%27450%27%3E%3Crect width=%27600%27 height=%27450%27 fill=%27%232f4f86%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 fill=%27%23fff%27 font-family=%27Inter,sans-serif%27 font-size=%2722%27 font-weight=%27600%27 text-anchor=%27middle%27 dominant-baseline=%27middle%27%3Eproj10-b.jpg%3C/text%3E%3C/svg%3E'" />
+          <img src="images/proj10-c.jpg" alt="" onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27600%27 height=%27450%27%3E%3Crect width=%27600%27 height=%２７450%２７ fill=%２’) %２３２f4f86%２７/%３E%３Ctext x=%２’) %２７50%２5%２７ y=%２’) %２７50%２5%２７ fill=%２’) %２３fff %２’) %２３Inter,sans-serif %２’) %２丙 twenty-two %２’) %２丙600 %２’) %２丙 text-anchor=%２’) %２丙middle %２’) %２丙 dominant-baseline=%２’) %２丙middle %２ %３Eproj ten -c.jpg %３C/text %３E %３C/svg %３E '" />
+        </div>
+        <a class="back-link" href="#projects">&uarr; Back to all projects</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="detail" id="project11">
+  <div class="wrap">
+    <div class="detail-grid">
+      <div class="detail-main">
+        <img src="images/proj11-a.jpg" alt="University of Hawaiʻi Drone Technologies (UHDT)"
+          onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27800%27 height=%27600%27%3E%3Crect width=%27800%27 height=%27600%27 fill=%27%232f4f86%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 fill=%27%23fff%27 font-family=%27Inter,sans-serif%27 font-size=%2722%27 font-weight=%27600%27 text-anchor=%27middle%27 dominant-baseline=%27middle%27%3Eproj10.jpg%3C/text%3E%3C/svg%3E'" />
+      </div>
+      <div class="detail-body">
+        <h2>University of Hawaiʻi Drone Technologies (UHDT)</h2>
+        <p>As Assistant Hardware Lead for <a href="pdfs/UHDT.pdf" target="_blank">University of Hawaiʻi Drone Technologies (UHDT)</a>, I developed concepts and designs for new landing gear and 
+          drone arms to meet the updated requirements for the 2025 Student Unmanned Aerial Systems (SUAS) Competition. My designs used carbon fiber 
+          bonded to aerospace-grade 6061-T6 aluminum, with geometries reworked for landing loads and compact storage. I presented design proposals to
+           an audience of over 60 members and advisors, and volunteered on the team's UROP funding effort, helping secure $10,000 for the 2024–2025 year.</p>
+        <div class="detail-gallery">
+          <img src="images/proj11-b.jpg" alt="" onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27600%27 height=%27450%27%3E%3Crect width=%27600%27 height=%27450%27 fill=%27%232f4f86%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 fill=%27%23fff%27 font-family=%27Inter,sans-serif%27 font-size=%2722%27 font-weight=%27600%27 text-anchor=%27middle%27 dominant-baseline=%27middle%27%3Eproj11-b.jpg%3C/text%3E%3C/svg%3E'" />
+          <img src="images/proj11-c.jpg" alt="" onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27600%27 height=%27450%27%3E%3Crect width=%27600%27 height=%27450%27 fill=%27%232f4f86%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 fill=%27%23fff%27 font-family=%27Inter,sans-serif%27 font-size=%2722%27 font-weight=%27600%27 text-anchor=%27middle%27 dominant-baseline=%27middle%27%3Eproj11-c.jpg%3C/text%3E%3C/svg%3E'" />
+        </div>
+        <a class="back-link" href="#projects">&uarr; Back to all projects</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="detail" id="project12">
+  <div class="wrap">
+    <div class="detail-grid">
+      <div class="detail-main">
+        <img src="images/proj12-a.jpg" alt="Stair-Climbing Robot"
+          onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27800%27 height=%27600%27%3E%3Crect width=%27800%27 height=%27600%27 fill=%27%232f4f86%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 fill=%27%23fff%27 font-family=%27Inter,sans-serif%27 font-size=%2722%27 font-weight=%27600%27 text-anchor=%27middle%27 dominant-baseline=%27middle%27%3Eproj11.jpg%3C/text%3E%3C/svg%3E'" />
+      </div>
+      <div class="detail-body">
+        <h2>Stair-Climbing Robot</h2>
+        <p>Robot built to compete in the University of Hawaii's Stair Climbing Competition. Outlined requirements were to climb 1.5 flights of stairs,
+           grab an egg at the top, and climb back within 6 minutes. I partnered with a team of students to design a robot with a unique tri-wheeled 
+           design with a clutch and rotating outer wheels. My role was lead in the egg-grabbing subsystem and assist in the geared wheel design.</p>
+        <div class="detail-gallery">
+          <img src="images/proj12-b.jpg" alt="" onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27600%27 height=%27450%27%3E%3Crect width=%27600%27 height=%27450%27 fill=%27%232f4f86%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 fill=%27%23fff%27 font-family=%27Inter,sans-serif%27 font-size=%2722%27 font-weight=%27600%27 text-anchor=%27middle%27 dominant-baseline=%27middle%27%3Eproj12-b.jpg%3C/text%3E%3C/svg%3E'" />
+        </div>
+        <a class="back-link" href="#projects">&uarr; Back to all projects</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="site-footer">
+  <div class="foot-links">
+    <a href="index.html">Home</a><span>|</span>
+    <a href="portfolio.html">Portfolio</a><span>|</span>
+    <a href="resume.html">Resume</a><span>|</span>
+    <a href="contact.html">Contact</a>
+  </div>
+  <div class="foot-meta">&copy; 2026 &mdash; Ken Yamashiro </div>
+  <div class="foot-social">
+    <a href="https://www.linkedin.com/in/ken-yamashiro" target="_blank" rel="noopener" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 0H5a5 5 0 00-5 5v14a5 5 0 005 5h14a5 5 0 005-5V5a5 5 0 00-5-5zM8 19H5V8h3v11zM6.5 6.7A1.8 1.8 0 116.5 3a1.8 1.8 0 010 3.7zM20 19h-3v-5.6c0-3.4-4-3.1-4 0V19h-3V8h3v1.8c1.4-2.6 7-2.8 7 2.5V19z"/></svg>
+    </a>
+    <a href="https://github.com/KenYam4" target="_blank" rel="noopener" aria-label="GitHub">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5A11.5 11.5 0 00.5 12 11.5 11.5 0 008.4 23c.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 016 0C17.3 4.6 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A11.5 11.5 0 0023.5 12 11.5 11.5 0 0012 .5z"/></svg>
+    </a>
+    <a href="mailto:kenyamas@usc.edu" aria-label="Email / link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 007.5.5l3-3a5 5 0 00-7-7l-1.5 1.5"/><path d="M14 11a5 5 0 00-7.5-.5l-3 3a5 5 0 007 7l1.5-1.5"/></svg>
+    </a>
+  </div>
+</footer>
+
+<script>
+  var btn = document.getElementById('menuBtn');
+  var nav = document.getElementById('nav');
+  if (btn && nav) btn.addEventListener('click', function () { nav.classList.toggle('open'); });
+</script>
+</body>
+</html>

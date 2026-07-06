@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ken — Mechanical Engineer</title>
+<meta name="description" content="Mechanical engineering portfolio — aerodynamics, aerospace structures, and motorsport." />
+
+<!-- ============================================================
+     HOW TO EDIT THIS PAGE
+     • Your text: search for the words below and change them.
+     • Your name/brand: edit the .brand line in the nav.
+     • Images: put files in an "images" folder next to this file
+       (hero.jpg and feature.jpg). Missing images fall back gracefully.
+     • Nav tabs link to portfolio.html / resume.html / contact.html —
+       create those later and the links will just work.
+     ============================================================ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --ink: #141414;
+    --ink-soft: #5c5c5c;
+    --line: #e4e4e0;
+    --accent: #2f4f86;
+    --hero-dark: #06080f;
+    --display: "Oswald", "Arial Narrow", system-ui, sans-serif;
+    --body: "Inter", system-ui, sans-serif;
+    --maxw: 1240px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; font-family: var(--body); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  img { display: block; max-width: 100%; }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 32px; }
+
+  /* ---------- NAV (transparent, over the hero) ---------- */
+  .nav {
+    position: absolute; top: 0; left: 0; right: 0; z-index: 10;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 24px; padding: 28px 40px;
+  }
+  .brand {
+    font-family: var(--display); font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.03em; font-size: 1.25rem; color: #fff; white-space: nowrap;
+  }
+  .brand:hover { text-decoration: none; }
+  .nav-right { display: flex; align-items: center; gap: 30px; }
+  .nav-links { display: flex; align-items: center; gap: 30px; }
+  .nav-links a { color: #fff; font-size: 1.05rem; font-weight: 400; }
+  .nav-links a:hover { text-decoration: none; opacity: 0.75; }
+  .nav-links a.active { text-decoration: underline; text-underline-offset: 8px; }
+  .nav-social { display: flex; align-items: center; gap: 18px; }
+  .nav-social a { color: #fff; display: flex; }
+  .nav-social a:hover { opacity: 0.75; }
+  .nav-social svg { width: 20px; height: 20px; }
+
+  .menu-btn { display: none; background: none; border: 0; cursor: pointer; width: 30px; height: 30px; padding: 0; }
+  .menu-btn span { display: block; height: 2px; background: #fff; margin: 6px 0; }
+
+  /* ---------- HERO (full screen, dark) ---------- */
+  .hero {
+    position: relative; min-height: 100vh; background: var(--hero-dark);
+    overflow: hidden; display: flex; align-items: flex-end; justify-content: center;
+  }
+  .hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+  .hero::after {
+    content: ""; position: absolute; inset: 0; z-index: 1;
+    background: linear-gradient(to bottom, rgba(6,8,15,0.25) 0%, rgba(6,8,15,0.30) 50%, rgba(6,8,15,0.70) 100%);
+  }
+  .hero-inner { position: relative; z-index: 2; text-align: center; color: #fff; padding: 0 24px 13vh; max-width: 1100px; }
+  .hero-inner h1 {
+    font-family: var(--display); font-weight: 700; text-transform: uppercase;
+    font-size: clamp(2.6rem, 7vw, 6rem); line-height: 1.04; letter-spacing: 0.01em; margin: 0 0 24px;
+  }
+  .hero-inner p {
+    font-family: var(--body); font-weight: 400; color: rgba(255,255,255,0.95);
+    font-size: clamp(1.05rem, 2vw, 1.5rem); line-height: 1.5; max-width: 900px; margin: 0 auto;
+  }
+
+  /* ---------- STATEMENTS (condensed uppercase) ---------- */
+  .statements { padding: 84px 0 40px; text-align: center; }
+  .statements p {
+    font-family: var(--display); font-weight: 500; text-transform: uppercase;
+    font-size: clamp(1.25rem, 2.5vw, 1.95rem); line-height: 1.35; letter-spacing: 0.01em;
+    max-width: 1080px; margin: 0 auto 40px;
+  }
+  .statements a { text-decoration: underline; }
+
+  /* ---------- MISSION (photo left, text right) ---------- */
+  .mission { padding: 24px 0 80px; }
+  .mission-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+  .mission figure { margin: 0; }
+  .mission figure img { width: 100%; height: auto; background: #eee; }
+  .mission figcaption { text-align: center; color: var(--ink-soft); margin-top: 14px; font-size: 0.98rem; }
+  .mission h2 {
+    font-family: var(--display); font-weight: 600; text-transform: uppercase;
+    font-size: clamp(1.6rem, 3.2vw, 2.3rem); letter-spacing: 0.01em; text-align: center; margin: 0 0 24px;
+  }
+  .mission p { margin: 0 0 20px; font-size: 1.05rem; }
+
+  /* ---------- FOOTER ---------- */
+  .site-footer { padding: 48px 24px 56px; text-align: center; }
+  .foot-links { margin-bottom: 18px; }
+  .foot-links a { color: var(--accent); font-size: 1rem; padding: 0 10px; }
+  .foot-links span { color: var(--ink-soft); }
+  .foot-meta { color: var(--ink); font-size: 0.95rem; margin-bottom: 20px; }
+  .foot-social { display: flex; gap: 20px; justify-content: center; }
+  .foot-social a { color: var(--ink); display: flex; }
+  .foot-social a:hover { color: var(--accent); }
+  .foot-social svg { width: 20px; height: 20px; }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 860px) {
+    .mission-grid { grid-template-columns: 1fr; gap: 32px; }
+    .nav { padding: 20px 24px; }
+    .nav-links, .nav-social { display: none; }
+    .menu-btn { display: block; }
+    .nav.open { flex-direction: column; align-items: flex-start; background: rgba(6,8,15,0.96); }
+    .nav.open .nav-links { display: flex; flex-direction: column; gap: 18px; width: 100%; margin-top: 16px; }
+    .nav.open .nav-social { display: flex; margin-top: 18px; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+</style>
+</head>
+<body>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero">
+  <!-- Replace images/hero.jpg with your own wide photo. If missing, the dark
+       background shows instead, so it still looks intentional. -->
+  <img class="hero-bg" src="images/hero.jpg" alt="" onerror="this.remove()" />
+
+  <!-- NAV (sits on top of the hero) -->
+  <header class="nav" id="nav">
+    <a class="brand" href="index.html">Ken Yamashiro — Mechanical Engineer</a>
+    <button class="menu-btn" id="menuBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+    <div class="nav-right">
+      <nav class="nav-links">
+        <a href="index.html" class="active">Home</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="resume.html">Resume</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="nav-social">
+        <a href="https://www.linkedin.com/in/ken-yamashiro" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 0H5a5 5 0 00-5 5v14a5 5 0 005 5h14a5 5 0 005-5V5a5 5 0 00-5-5zM8 19H5V8h3v11zM6.5 6.7A1.8 1.8 0 116.5 3a1.8 1.8 0 010 3.7zM20 19h-3v-5.6c0-3.4-4-3.1-4 0V19h-3V8h3v1.8c1.4-2.6 7-2.8 7 2.5V19z"/></svg>
+        </a>
+        <a href="https://github.com/KenYam4" target="_blank" rel="noopener" aria-label="GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5A11.5 11.5 0 00.5 12 11.5 11.5 0 008.4 23c.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 016 0C17.3 4.6 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A11.5 11。
+</svg>
+        </a>
+        <a href="mailto:kenyamas@usc.edu" aria-label="Email / link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 007.5.5l3-3a5 5 0 00-7-7l-1.5 1.5"/><path d="M14 11a5 5 0 00-7.5-.5l-3 3a5 5 0 007 7l1.5-1.5"/></svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <div class="hero-inner">
+    <h1>Hi, I'm Ken Yamashiro</h1>
+    <p>I'm a Mechanical Engineer with a passion for aerodynamics, spaceflight, motorsports, and manufacturing.</p>
+  </div>
+</section>
+
+<!-- ===================== STATEMENTS ===================== -->
+<section class="statements">
+  <div class="wrap">
+    <p>I've assited researching bio-inspired aerodynamics and high-energy particle physics, interned at NASA's Columbia Scientific
+        Balloon Facility, and engineered powertrain and cooling systems for USC Racing.</p>
+    <p>Currently at USC
+       studying mechanical engineering and building toward graduate study.</p>
+  </div>
+</section>
+
+<!-- ===================== MISSION ===================== -->
+<section class="mission">
+  <div class="wrap">
+    <div class="mission-grid">
+
+      <figure>
+        <!-- Replace images/feature.jpg with your own photo. -->
+        <img src="images/feature.jpg" alt=""
+          onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27760%27 height=%27880%27%3E%3Cdefs%3E%3ClinearGradient id=%27g%27 x1=%270%27 y1=%270%27 x2=%271%27 y2=%271%27%3E%3Cstop offset=%270%27 stop-color=%27%232f4f86%27/%3E%3Cstop offset=%271%27 stop-color=%27%23151f33%27/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width=%27760%27 height=%27880%27 fill=%27url(%23g)%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 fill=%27rgba(255,255,255,.85)%27 font-family=%27Inter,sans-serif%27 font-size=%2722%27 font-weight=%27600%27 text-anchor=%27middle%27 dominant-baseline=%27middle%27%3EAdd a photo (images/feature.jpg)%3C/text%3E%3C/svg%3E'" />
+        <figcaption>At the NASA Columbia Scientific Balloon Facility!</figcaption>
+      </figure>
+
+      <div>
+        <h2>An eager and passionate engineer.</h2>
+        <p>
+          I'm a mechanical engineer with a passion for creating innovative solutions across aerospace
+          and motorsports. I'll welcome any challenge that is thrown at me and am excited
+          to apply myself to any task required. 
+        </p>
+        <p>
+          I transferred to USC from the University of Hawai&#699;i at M&#257;noa, where I helped design, test, and manufacture systems for the NASA PUEO
+          project at the High Energy Physics Group. I've also designed and tested numerous neutrino detectors, RF systems, particle physics experiments,
+          and machined over 700 flight components. At USC, I've worked as an undergraduate assistant at
+          the USC Viterbi School of Engineering to design VTOL drones with bio-inspired mechanisms. I've also worked as a Powertrain engineer for the,
+          <a href="portfolio.html">USC Formula SAE</a> team, where I work on engine systems in CAD, Ansys, and MATLAB for SCR26.
+          I've also worked on shape-memory-alloy tensegrity structures for my senior capstone, and contributed to publications and studies at NASA.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="site-footer">
+  <div class="foot-links">
+    <a href="index.html">Home</a><span>|</span>
+    <a href="portfolio.html">Portfolio</a><span>|</span>
+    <a href="resume.html">Resume</a><span>|</span>
+    <a href="contact.html">Contact</a>
+  </div>
+  <div class="foot-meta">&copy; 2026 &mdash; Ken Yamashiro</div>
+  <div class="foot-social">
+    <a href="https://www.linkedin.com/in/ken-yamashiro/" target="_blank" rel="noopener" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 0H5a5 5 0 00-5 5v14a5 5 0 005 5h14a5 5 0 005-5V5a5 5 0 00-5-5zM8 19H5V8h3v11zM6.5 6.7A1.8 1.8 0 116.5 3a1.8 1.8 0 010 3.7zM20 19h-3v-5.6c0-3.4-4-3.1-4 0V19h-3V8h3v1.8c1.4-2.6 7-2.8 7 2.5V19z"/></svg>
+    </a>
+    <a href="https://github.com/KenYam4" target="_blank" rel="noopener" aria-label="GitHub">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5A11.5 11.5 0 00.5 12 11.5 11.5 0 008.4 23c.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 016 0C17.3 4.6 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A11.5 11.5 0 0023.5 12 11.5 11.5 0 0012 .5z"/></svg>
+    </a>
+    <a href="mailto:kenyamas@usc.edu" aria-label="Email / link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 007.5.5l3-3a5 5 0 00-7-7l-1.5 1.5"/><path d="M14 11a5 5 0 00-7.5-.5l-3 3a5 5 0 007 7l1.5-1.5"/></svg>
+    </a>
+  </div>
+</footer>
+
+<script>
+  // Only JS on the page: the mobile menu toggle.
+  var btn = document.getElementById('menuBtn');
+  var nav = document.getElementById('nav');
+  if (btn && nav) btn.addEventListener('click', function () { nav.classList.toggle('open'); });
+</script>
+</body>
+</html>

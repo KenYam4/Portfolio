@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Resume — Ken Yamashiro</title>
+<meta name="description" content="Resume and certifications." />
+
+<!-- ============================================================
+     HOW TO EDIT
+     • Add these PDF files in the SAME folder as this page:
+         resume.pdf            (your resume)
+         cert-solidworks.pdf   (SOLIDWORKS certificate)
+         cert-citi.pdf         (CITI certificate)
+       Until a PDF is present, that box shows a download link instead.
+     • To add another certification, copy a whole <section class="cert-block">.
+     ============================================================ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --ink: #141414;
+    --ink-soft: #5c5c5c;
+    --line: #e4e4e0;
+    --accent: #2f4f86;
+    --display: "Oswald", "Arial Narrow", system-ui, sans-serif;
+    --body: "Inter", system-ui, sans-serif;
+    --maxw: 1240px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; font-family: var(--body); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  img { display: block; max-width: 100%; }
+
+  /* ---------- NAV (solid) ---------- */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255,255,255,0.95); backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 18px 40px;
+  }
+  .brand { font-family: var(--display); font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; font-size: 1.2rem; color: var(--ink); white-space: nowrap; }
+  .brand:hover { text-decoration: none; }
+  .nav-right { display: flex; align-items: center; gap: 30px; }
+  .nav-links { display: flex; align-items: center; gap: 30px; }
+  .nav-links a { color: var(--ink-soft); font-size: 1.02rem; font-weight: 400; }
+  .nav-links a:hover { text-decoration: none; color: var(--ink); }
+  .nav-links a.active { color: var(--ink); text-decoration: underline; text-underline-offset: 8px; }
+  .nav-social { display: flex; align-items: center; gap: 18px; }
+  .nav-social a { color: var(--ink); display: flex; }
+  .nav-social a:hover { color: var(--accent); }
+  .nav-social svg { width: 20px; height: 20px; }
+  .menu-btn { display: none; background: none; border: 0; cursor: pointer; width: 30px; height: 30px; padding: 0; }
+  .menu-btn span { display: block; height: 2px; background: var(--ink); margin: 6px 0; }
+
+  /* ---------- HEADINGS ---------- */
+  .page-title {
+    font-family: var(--display); font-weight: 700; text-transform: uppercase;
+    text-align: center; font-size: clamp(2.4rem, 6vw, 5rem); letter-spacing: 0.01em;
+    margin: 0; padding: 64px 24px 6px;
+  }
+  .section-title {
+    font-family: var(--display); font-weight: 700; text-transform: uppercase;
+    text-align: center; font-size: clamp(2rem, 5vw, 3.6rem); letter-spacing: 0.01em;
+    margin: 0; padding: 80px 24px 6px;
+  }
+
+  /* ---------- PDF DOCUMENT BLOCKS ---------- */
+  .doc-wrap { max-width: 900px; margin: 0 auto; padding: 28px 24px 0; }
+  .pdf {
+    width: 100%; aspect-ratio: 8.5 / 11;
+    border: 1px solid var(--line); box-shadow: 0 8px 30px rgba(0,0,0,0.10); background: #f3f3f1;
+  }
+  .pdf-fallback {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    height: 100%; gap: 18px; color: var(--ink-soft); text-align: center; padding: 24px;
+    font-family: var(--body);
+  }
+  .doc-actions { text-align: center; margin-top: 18px; }
+  .btn {
+    display: inline-block; font-family: var(--body); background: var(--ink); color: #fff;
+    padding: 12px 26px; font-weight: 500; font-size: 0.95rem; border-radius: 4px; transition: background 0.15s;
+  }
+  .btn:hover { background: var(--accent); text-decoration: none; }
+
+  .cert-block { margin-top: 8px; }
+  .cert-label {
+    font-family: var(--display); font-weight: 600; text-transform: uppercase;
+    text-align: center; font-size: clamp(1.2rem, 2.6vw, 1.7rem); letter-spacing: 0.02em;
+    margin: 44px 0 0;
+  }
+
+  /* ---------- FOOTER ---------- */
+  .site-footer { padding: 56px 24px; text-align: center; border-top: 1px solid var(--line); margin-top: 72px; }
+  .foot-links { margin-bottom: 18px; }
+  .foot-links a { color: var(--accent); font-size: 1rem; padding: 0 10px; }
+  .foot-links span { color: var(--ink-soft); }
+  .foot-meta { color: var(--ink); font-size: 0.95rem; margin-bottom: 20px; }
+  .foot-social { display: flex; gap: 20px; justify-content: center; }
+  .foot-social a { color: var(--ink); display: flex; }
+  .foot-social a:hover { color: var(--accent); }
+  .foot-social svg { width: 20px; height: 20px; }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 860px) {
+    .nav { padding: 16px 24px; }
+    .nav-links, .nav-social { display: none; }
+    .menu-btn { display: block; }
+    .nav.open { flex-direction: column; align-items: flex-start; }
+    .nav.open .nav-links { display: flex; flex-direction: column; gap: 16px; width: 100%; margin-top: 14px; }
+    .nav.open .nav-social { display: flex; margin-top: 14px; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+</style>
+</head>
+<body>
+
+<!-- ===================== NAV ===================== -->
+<header class="nav" id="nav">
+  <a class="brand" href="index.html">Ken Yamashiro — Mechanical Engineer</a>
+  <button class="menu-btn" id="menuBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+  <div class="nav-right">
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="resume.html" class="active">Resume</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-social">
+      <a href="https://www.linkedin.com/in/ken-yamashiro" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 0H5a5 5 0 00-5 5v14a5 5 0 005 5h14a5 5 0 005-5V5a5 5 0 00-5-5zM8 19H5V8h3v11zM6.5 6.7A1.8 1.8 0 116.5 3a1.8 1.8 0 010 3.7zM20 19h-3v-5.6c0-3.4-4-3.1-4 0V19h-3V8h3v1.8c1.4-2.6 7-2.8 7 2.5V19z"/></svg>
+      </a>
+      <a href="https://github.com/KenYam4" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5A11.5 11.5 0 00.5 12 11.5 11.5 0 008.4 23c.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 016 0C17.3 4.6 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A11.5 11.5 0 0023.5 12 11.5 11.5 0 0012 .5z"/></svg>
+      </a>
+      <a href="mailto:kenyamas@usc.edu" aria-label="Email">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 007.5.5l3-3a5 5 0 00-7-7l-1.5 1.5"/><path d="M14 11a5 5 0 00-7.5-.5l-3 3a5 5 0 007 7l1.5-1.5"/></svg>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== RESUME (full width) ===================== -->
+<h1 class="page-title">Resume</h1>
+
+<div class="doc-wrap">
+  <!-- The browser renders resume.pdf inline. If it's missing or can't display,
+       the fallback link inside shows instead. -->
+  <object class="pdf" data="docs/kenyamashiro_resume.pdf#view=FitH" type="application/pdf">
+    <div class="pdf-fallback">
+      <p>Add <strong>resume.pdf</strong> to this folder to show a preview here.</p>
+      <a class="btn" href="docs/kenyamashiro_resume.pdf">Open / Download Resume (PDF)</a>
+    </div>
+  </object>
+  <div class="doc-actions">
+    <a class="btn" href="docs/kenyamashiro_resume.pdf" target="_blank" rel="noopener">Open full resume (PDF)</a>
+  </div>
+</div>
+
+<!-- ===================== CERTIFICATIONS (stacked below) ===================== -->
+<h2 class="section-title">Certifications</h2>
+
+<section class="cert-block">
+  <h3 class="cert-label">SOLIDWORKS CAD Design Associate (CSWA)</h3>
+  <div class="doc-wrap">
+    <object class="pdf" data="docs/cert-solidworks.pdf#view=FitH" type="application/pdf">
+      <div class="pdf-fallback">
+        <p>Add <strong>cert-solidworks.pdf</strong> to this folder to show a preview here.</p>
+        <a class="btn" href="docs/cert-solidworks.pdf">Open / Download Certificate (PDF)</a>
+      </div>
+    </object>
+    <div class="doc-actions">
+      <a class="btn" href="docs/cert-solidworks.pdf" target="_blank" rel="noopener">Open certificate (PDF)</a>
+    </div>
+  </div>
+</section>
+
+<section class="cert-block">
+  <h3 class="cert-label">CITI — Responsible Conduct of Research for Engineers</h3>
+  <div class="doc-wrap">
+    <object class="pdf" data="docs/cert-citi.pdf#view=FitH" type="application/pdf">
+      <div class="pdf-fallback">
+        <p>Add <strong>cert-citi.pdf</strong> to this folder to show a preview here.</p>
+        <a class="btn" href="docs/cert-citi.pdf">Open / Download Certificate (PDF)</a>
+      </div>
+    </object>
+    <div class="doc-actions">
+      <a class="btn" href="docs/cert-citi.pdf" target="_blank" rel="noopener">Open certificate (PDF)</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="site-footer">
+  <div class="foot-links">
+    <a href="index.html">Home</a><span>|</span>
+    <a href="portfolio.html">Portfolio</a><span>|</span>
+    <a href="resume.html">Resume</a><span>|</span>
+    <a href="contact.html">Contact</a>
+  </div>
+  <div class="foot-meta">&copy; 2026 &mdash; Ken Yamashiro</div>
+  <div class="foot-social">
+    <a href="https://www.linkedin.com/in/ken-yamashiro" target="_blank" rel="noopener" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 0H5a5 5 0 00-5 5v14a5 5 0 005 5h14a5 5 0 005-5V5a5 5 0 00-5-5zM8 19H5V8h3v11zM6.5 6.7A1.8 1.8 0 116.5 3a1.8 1.8 0 010 3.7zM20 19h-3v-5.6c0-3.4-4-3.1-4 0V19h-3V8h3v1.8c1.4-2.6 7-2.8 7 2.5V19z"/></svg>
+    </a>
+    <a href="https://github.com/KenYam4" target="_blank" rel="noopener" aria-label="GitHub">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5A11.5 11.5 0 00.5 12 11.5 11.5 0 008.4 23c.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 016 0C17.3 4.6 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A11.5 11.5 0 0023.5 12 11.5 11.5 0 0012 .5z"/></svg>
+    </a>
+    <a href="mailto:kenyamas@usc.edu" aria-label="Email">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 007.5.5l3-3a5 5 0 00-7-7l-1.5 1.5"/><path d="M14 11a5 5 0 00-7.5-.5l-3 3a5 5 0 007 7l1.5-1.5"/></svg>
+    </a>
+  </div>
+</footer>
+
+<script>
+  var btn = document.getElementById('menuBtn');
+  var nav = document.getElementById('nav');
+  if (btn && nav) btn.addEventListener('click', function () { nav.classList.toggle('open'); });
+</script>
+</body>
+</html>
